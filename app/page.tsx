@@ -4,6 +4,7 @@ import { ask } from '@tauri-apps/api/dialog';
 import { sendNotification } from '@tauri-apps/api/notification';
 import { useState } from 'react';
 import TimerControls from './components/TimerControls';
+import TimerDisplay from './components/TimerDisplay';
 import { useInterval } from './hooks/useInterval';
 
 const BUTTON_TIMES = [
@@ -60,9 +61,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-700 flex items-center flex-col">
       <h1 className="text-white font-bold mt-20 text-5xl">Pomodoro Timer</h1>
-      <div className="text-white font-bold text-7xl mt-5">{`${String(
-        Math.floor(time / 60)
-      ).padStart(2, '0')}:${String(time % 60).padStart(2, '0')}`}</div>
+      {<TimerDisplay time={time} />}
       <TimerControls
         toggleTimer={toggleTimer}
         timerStart={timerStart}
