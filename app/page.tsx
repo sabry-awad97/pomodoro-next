@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useInterval } from './hooks/useInterval';
 import { ask } from '@tauri-apps/api/dialog';
 import { sendNotification } from '@tauri-apps/api/notification';
+import { useState } from 'react';
+import TimerControls from './components/TimerControls';
+import { useInterval } from './hooks/useInterval';
 
 const BUTTON_TIMES = [
   {
@@ -62,20 +63,11 @@ function App() {
       <div className="text-white font-bold text-7xl mt-5">{`${String(
         Math.floor(time / 60)
       ).padStart(2, '0')}:${String(time % 60).padStart(2, '0')}`}</div>
-      <div className="flex mt-5">
-        <button
-          className="w-28 bg-red-500 text-white py-2 px-4 rounded"
-          onClick={toggleTimer}
-        >
-          {!timerStart ? 'Start' : 'Pause'}
-        </button>
-        <button
-          className="bg-blue-300 mx-5 py-2 px-4 rounded"
-          onClick={resetTimer}
-        >
-          Reset
-        </button>
-      </div>
+      <TimerControls
+        toggleTimer={toggleTimer}
+        timerStart={timerStart}
+        resetTimer={resetTimer}
+      />
       <div className="flex mt-10">
         {BUTTON_TIMES.map(({ value, display }) => (
           <button
