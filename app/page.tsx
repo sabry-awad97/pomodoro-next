@@ -5,22 +5,8 @@ import { sendNotification } from '@tauri-apps/api/notification';
 import { useState } from 'react';
 import TimerControls from './components/TimerControls';
 import TimerDisplay from './components/TimerDisplay';
+import TimerOptions from './components/TimerOptions';
 import { useInterval } from './hooks/useInterval';
-
-const BUTTON_TIMES = [
-  {
-    value: 15 * 60,
-    display: '15 minutes',
-  },
-  {
-    value: 30 * 60,
-    display: '30 minutes',
-  },
-  {
-    value: 60 * 60,
-    display: '60 minutes',
-  },
-];
 
 const initialTimerValue = 15 * 60; // Initial time set to 15 minutes
 
@@ -58,6 +44,11 @@ function App() {
     }
   }, 1000);
 
+  const updateTimer = (time: number) => {
+    setTimerStart(false);
+    setTime(time);
+  };
+
   return (
     <div className="min-h-screen bg-gray-700 flex items-center flex-col">
       <h1 className="text-white font-bold mt-20 text-5xl">Pomodoro Timer</h1>
@@ -67,20 +58,7 @@ function App() {
         timerStart={timerStart}
         resetTimer={resetTimer}
       />
-      <div className="flex mt-10">
-        {BUTTON_TIMES.map(({ value, display }) => (
-          <button
-            key={value}
-            className="mx-4 bg-green-300 text-white py-2 px-4 rounded"
-            onClick={() => {
-              setTimerStart(false);
-              setTime(value);
-            }}
-          >
-            {display}
-          </button>
-        ))}
-      </div>
+      {<TimerOptions onOptionClick={updateTimer} />}
     </div>
   );
 }
