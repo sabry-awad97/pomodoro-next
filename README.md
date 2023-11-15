@@ -1,1 +1,1 @@
-# Tauri + Next.js Template
+# Pomodoro Timer App
